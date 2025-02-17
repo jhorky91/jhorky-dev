@@ -1,0 +1,38 @@
+---
+import ButtonDownloadCv from "../buttons/buttonDownloadCv.astro";
+import EmailIcon from "../icons/EmailIcon.astro";
+import GithubIcon from "../icons/GithubIcon.astro";
+import LinkedinIcon from "../icons/LinkedinIcon.astro";
+import SocialPill from "../SocialPill.astro";
+import Badge from "../ui/Badge.astro";
+---
+
+<div class="flex flex-col gap-y-5">
+  <img class="rounded-full size-30" src="/foto_cv.jpg" alt="foto_cv" />
+  <h1 class="text-3xl font-bold">
+    Hola, soy Jhorky <Badge>Disponibilidad inmediata</Badge>
+  </h1>
+  <p class="text-md opacity-80">
+    Cuento con más de 3 años de experiencia en optimización de aplicaciones y
+    gestión de datos. Especializado en identificar problemas y desarrollar
+    soluciones innovadoras que mejoran la eficiencia operativa. Apasionado por
+    el aprendizaje continuo y el trabajo en equipo.
+  </p>
+  <nav class="flex gap-x-8">
+    <SocialPill href="https://www.linkedin.com/in/jhorkyescalante/">
+      <LinkedinIcon class="size-6" />
+      Linkedin
+    </SocialPill>
+    <SocialPill href="https://github.com/jhorky91/">
+      <GithubIcon class="size-6" />
+      Github
+    </SocialPill>
+    <SocialPill href="mailto:escalante.jhorky.91@gmail.com">
+      <EmailIcon class="size-6" />
+      escalante.jhorky.91@gmail.com
+    </SocialPill>
+  </nav>
+  <div>
+    <ButtonDownloadCv />
+  </div>
+</div>

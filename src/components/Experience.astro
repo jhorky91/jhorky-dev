@@ -1,0 +1,50 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+import BriefCaseIcon from "./icons/BriefCaseIcon.astro";
+
+const EXPERIENCE = [
+  {
+    role: "Analista Funcional",
+    company: "Cladd I.T.A. S.A.",
+    date: "may. 2024 - nov. 2024",
+    description:
+      "Soporte funcional a usuarios mediante uso ERP de la Empresa. Gestión y resolución de tickets acorde a los plazos establecidos. Colaboración con el con equipo de Desarrollo para identificar y solucionar problemas(logs, bugs). Migración de Sistema de Producción a uno mas elaborado. Documentar requerimientos del cliente y soluciones implementadas.",
+  },
+  {
+    role: "Analista Funcional",
+    company: "Accenture Argentina S.A.",
+    date: "jul. 2022 - abr. 2024",
+    description:
+      "Soporte de App y Rolados(Definiciones Funcionales, Testing y Mejoras). Gestión y Ejecución de pruebas de usuario. Seguimiento de bugs, optimización de performance. Regresión de escenarios en distintos ambientes. Generación de casos de prueba, teniendo en cuenta las definiciones funcionales aprobadas por el cliente. Identificar las causa de los problemas de información errónea. (analizar las distintas capas de BI, desde la extracción del dato revisando los procesos Batch como así también las transformaciones en los ETL's desarrollados en DataStage). Especificar los requerimientos funcionales para el área de desarrollo. Generación de consultas en base de datos(Oracle, SqlServer, MySql). Analizar incidencias al gestionar tickets de calidad de datos en SAP Solman. Diseño y documentación de la solución(flujogramas).• Analizar Jobs en Control-M(logs, ouputs).",
+  },
+  {
+    role: "Analista Funcional en Gestión de Apps",
+    company: "Sofrecom Argentina",
+    date: "sep. 2021 - jun. 2022",
+    description:
+      "Gestión y Monitoreo de ETLS con Informática PowerCenter. Manejo de Herramienta de Reportería(MicroStrategy). Manejo de Datos en Teradata y Oracle. Gestión de Incidencias(HP Service Manager). Ingestas de datos en Hive mediante flujo de procesos en Nifi (HortonWorks Data Flow HDF). Asistencia a Guardias Generales y Guardias Pasivas",
+  },
+  {
+    role: "Analista Funcional",
+    company: "Power Solution",
+    date: "sep. 2018 - ene. 2021",
+    description:
+      "Mantenimiento de aplicaciones web y optimización defuncionalidades existentes. Desarrollo de documentos funcionales, incluyendo requerimientos y casos de uso para nuevas implementaciones. Desarrollo de documentos funcionales y resolución de incidentes con HP Service Manager. Colaboración con equipos de desarrollo y QA para garantizar la calidad en implementaciones. Soporte funcional para usuarios finales. Coordinación de pruebas funcionales y validación en entornos de desarrollo y producción.",
+  },
+];
+---
+
+<div class="flex gap-x-3 items-center mb-10">
+  <BriefCaseIcon class="size-10" />
+  <h1 class="text-3xl font-bold">Experiencia Laboral</h1>
+</div>
+
+<ol class="relative border-s border-gray-200 dark:border-gray-700">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="mb-10 ms-6">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>
