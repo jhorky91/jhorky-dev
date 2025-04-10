@@ -6,7 +6,7 @@ interface Props {
 const { title, description } = Astro.props;
 // Supports weights 100-900
 import "@fontsource-variable/onest";
-import Header from "../components/Header.astro";
+import Header from "@/components/Header.astro";
 ---
 
 <!doctype html>
@@ -19,13 +19,15 @@ import Header from "../components/Header.astro";
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body
-    class="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"
-  >
-    <section class="flex justify-center pt-8">
-      <Header />
-    </section>
-    <slot />
+  <body class="h-screen flex flex-col overflow-hidden">
+    <div
+      class="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
+    >
+    </div>
+    <Header />
+    <main class="flex-2 overflow-y-auto px-5 py-4">
+      <slot />
+    </main>
   </body>
 
   <style is:global>

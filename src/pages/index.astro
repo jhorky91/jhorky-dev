@@ -1,19 +1,19 @@
 ---
 import "../styles/global.css";
-import Layout from "../layouts/Layout.astro";
-import SectionContainer from "../components/SectionContainer.astro";
-import CardProfile from "../components/cards/CardProfile.astro";
-import Experience from "../components/Experience.astro";
+import Layout from "@layouts/Layout.astro";
+import SectionContainer from "@components/SectionContainer.astro";
+import CardProfile from "@components/cards/CardProfile.astro";
+import Experience from "@components/Experience.astro";
 ---
 
 <Layout
   title="Portafolio de Jhorky - Analista y Programador Web"
   description="Contrata a Jhorky para mejorar la experiencia de tus clientes y aumentar la productividad en tu empresa."
 >
-  <SectionContainer class="py-30 pb-10">
+  <SectionContainer class="pb-10">
     <CardProfile />
   </SectionContainer>
-  <SectionContainer class="pb-10">
+  <SectionContainer class="pb-4">
     <Experience />
   </SectionContainer>
 </Layout>

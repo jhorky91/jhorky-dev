@@ -1,0 +1,100 @@
+---
+import {
+  X,
+  User,
+  Briefcase,
+  Code,
+  GraduationCap,
+  FolderKanban,
+} from "@lucide/astro";
+---
+
+<!-- Contenedor -->
+<div class="relative z-50">
+  <!-- Botón hamburguesa (abrir menú) -->
+  <button id="hamburBtnOpen" class="flex flex-col gap-2 p-2 focus:outline-none">
+    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
+    ></span>
+    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
+    ></span>
+    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
+    ></span>
+  </button>
+
+  <!-- Panel deslizable -->
+  <div
+    id="menuMobilePanel"
+    class="fixed top-0 left-0 h-full w-4/5 bg-neutral-950 text-white transform -translate-x-full transition-transform duration-300 z-40 px-6 py-10 flex flex-col justify-between bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+  >
+    <!-- Cierre -->
+    <button
+      id="hamburBtnClose"
+      class="absolute top-4 right-4 hover:text-red-500 transition cursor-pointer"
+    >
+      <X size={32} stroke-width={2.5} />
+    </button>
+
+    <!-- Navegación -->
+    <nav class="flex flex-col gap-6 mt-12 text-lg">
+      <a
+        class="flex items-center gap-3 hover:text-purple-400 transition"
+        href="#sobre-mi"
+      >
+        <User size={22} /> Sobre mí
+      </a>
+      <a
+        class="flex items-center gap-3 hover:text-purple-400 transition"
+        href="#experience"
+      >
+        <Briefcase size={22} /> Experiencia
+      </a>
+      <a
+        class="flex items-center gap-3 hover:text-purple-400 transition"
+        href="#skills"
+      >
+        <Code size={22} /> Tecnologías
+      </a>
+      <a
+        class="flex items-center gap-3 hover:text-purple-400 transition"
+        href="#education"
+      >
+        <GraduationCap size={22} /> Educación
+      </a>
+      <a
+        class="flex items-center gap-3 hover:text-purple-400 transition"
+        href="#proyects"
+      >
+        <FolderKanban size={22} /> Proyectos
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <div class="text-xs text-neutral-400 mt-10">
+      <span>Versión 0.0.1</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnOpen = document.getElementById("hamburBtnOpen");
+    const btnClose = document.getElementById("hamburBtnClose");
+    const panel = document.getElementById("menuMobilePanel");
+    const links = document.querySelectorAll("#menuMobilePanel a");
+
+    function togglePanel() {
+      panel?.classList.toggle("-translate-x-full");
+      panel?.classList.toggle("translate-x-0");
+    }
+
+    btnOpen?.addEventListener("click", togglePanel);
+    btnClose?.addEventListener("click", togglePanel);
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        panel?.classList.add("-translate-x-full");
+        panel?.classList.remove("translate-x-0");
+      });
+    });
+  });
+</script>
