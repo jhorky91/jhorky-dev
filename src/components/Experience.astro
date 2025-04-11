@@ -1,50 +1,64 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro";
+// Archivo: Experience.astro
 import BriefCaseIcon from "./icons/BriefCaseIcon.astro";
-
-const EXPERIENCE = [
-  {
-    role: "Analista Funcional",
-    company: "Cladd I.T.A. S.A.",
-    date: "may. 2024 - nov. 2024",
-    description:
-      "Soporte funcional a usuarios mediante uso ERP de la Empresa. Gestión y resolución de tickets acorde a los plazos establecidos. Colaboración con el con equipo de Desarrollo para identificar y solucionar problemas(logs, bugs). Migración de Sistema de Producción a uno mas elaborado. Documentar requerimientos del cliente y soluciones implementadas.",
-  },
-  {
-    role: "Analista Funcional",
-    company: "Accenture Argentina S.A.",
-    date: "jul. 2022 - abr. 2024",
-    description:
-      "Soporte de App y Rolados(Definiciones Funcionales, Testing y Mejoras). Gestión y Ejecución de pruebas de usuario. Seguimiento de bugs, optimización de performance. Regresión de escenarios en distintos ambientes. Generación de casos de prueba, teniendo en cuenta las definiciones funcionales aprobadas por el cliente. Identificar las causa de los problemas de información errónea. (analizar las distintas capas de BI, desde la extracción del dato revisando los procesos Batch como así también las transformaciones en los ETL's desarrollados en DataStage). Especificar los requerimientos funcionales para el área de desarrollo. Generación de consultas en base de datos(Oracle, SqlServer, MySql). Analizar incidencias al gestionar tickets de calidad de datos en SAP Solman. Diseño y documentación de la solución(flujogramas).• Analizar Jobs en Control-M(logs, ouputs).",
-  },
-  {
-    role: "Analista Funcional en Gestión de Apps",
-    company: "Sofrecom Argentina",
-    date: "sep. 2021 - jun. 2022",
-    description:
-      "Gestión y Monitoreo de ETLS con Informática PowerCenter. Manejo de Herramienta de Reportería(MicroStrategy). Manejo de Datos en Teradata y Oracle. Gestión de Incidencias(HP Service Manager). Ingestas de datos en Hive mediante flujo de procesos en Nifi (HortonWorks Data Flow HDF). Asistencia a Guardias Generales y Guardias Pasivas",
-  },
-  {
-    role: "Analista Funcional",
-    company: "Power Solution",
-    date: "sep. 2018 - ene. 2021",
-    description:
-      "Mantenimiento de aplicaciones web y optimización defuncionalidades existentes. Desarrollo de documentos funcionales, incluyendo requerimientos y casos de uso para nuevas implementaciones. Desarrollo de documentos funcionales y resolución de incidentes con HP Service Manager. Colaboración con equipos de desarrollo y QA para garantizar la calidad en implementaciones. Soporte funcional para usuarios finales. Coordinación de pruebas funcionales y validación en entornos de desarrollo y producción.",
-  },
-];
+import { EXPERIENCE } from "@/utils/data.js";
 ---
 
-<div id="experience" class="flex gap-x-3 items-center mb-10">
-  <BriefCaseIcon class="size-8" />
-  <h1 class="text-2xl md:text-4xl font-bold">Experiencia Laboral</h1>
-</div>
+<section id="experience" class="scroll-mt-[80px]">
+  <div class="flex items-center gap-3 mb-8">
+    <BriefCaseIcon class="size-7 md:size-8 shrink-0" />
+    <h2 class="text-2xl md:text-4xl font-bold">Experiencia Laboral</h2>
+  </div>
 
-<ol class="relative border-s mx-2 md:mx-0 border-gray-200 dark:border-gray-700">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class=" ms-6">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
-  }
-</ol>
+  <div class="relative">
+    <ol class="relative border-s border-gray-300 dark:border-gray-700 ml-4">
+      {
+        EXPERIENCE.map((experience, index) => (
+          <li
+            class={`relative ms-6 ${index !== EXPERIENCE.length - 1 ? "pb-10" : ""} group`}
+          >
+            <div class="absolute -start-3 top-1.5 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+              <svg
+                class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+              </svg>
+            </div>
+            <div class="p-6 bg-white dark:bg-[#1d1f21] rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                {experience.role}
+              </h3>
+              <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                {experience.company}
+              </span>
+              <time class="block text-sm text-gray-500 dark:text-gray-400 italic my-1">
+                {experience.date}
+              </time>
+              <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                {experience.description.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <svg
+                      class="w-4 h-4 mt-1 text-blue-600 dark:text-blue-400 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

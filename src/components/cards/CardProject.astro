@@ -1,0 +1,26 @@
+---
+// CardProject.astro
+const { title, image, description, maskColor } = Astro.props;
+---
+
+<div
+  class="relative rounded-xl p-6 shadow-lg hover:scale-105 transition-transform bg-gradient-to-br from-[#1c1c1f] to-[#2a2a30] overflow-hidden"
+>
+  <!-- Máscara radial más visible -->
+  <div
+    class="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
+    style={`background: radial-gradient(120% 120% at 50% 20%, ${maskColor} 0%, transparent 70%)`}
+  >
+  </div>
+
+  <!-- Contenido -->
+  <div class="relative z-10">
+    <img
+      src={image}
+      alt={title}
+      class="rounded-lg mb-4 w-full object-cover shadow-inner"
+    />
+    <h3 class="text-xl font-bold text-white mb-2">{title}</h3>
+    <p class="text-sm text-gray-300 leading-relaxed">{description}</p>
+  </div>
+</div>
