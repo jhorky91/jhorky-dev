@@ -24,7 +24,7 @@ import {
   <!-- Panel deslizable -->
   <div
     id="menuMobilePanel"
-    class="fixed top-0 left-0 h-full w-4/5 bg-neutral-950 text-white transform -translate-x-full transition-transform duration-300 z-40 px-6 py-10 flex flex-col justify-between bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+    class="fixed top-0 left-0 h-screen w-4/5 overflow-y-auto bg-neutral-950 text-white transform -translate-x-full transition-transform duration-300 z-40 px-6 py-10 flex flex-col justify-between bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
   >
     <!-- Cierre -->
     <button
@@ -83,8 +83,17 @@ import {
     const links = document.querySelectorAll("#menuMobilePanel a");
 
     function togglePanel() {
-      panel?.classList.toggle("-translate-x-full");
-      panel?.classList.toggle("translate-x-0");
+      const isOpen = panel?.classList.contains("-translate-x-full");
+
+      if (isOpen) {
+        panel?.classList.remove("-translate-x-full");
+        panel?.classList.add("translate-x-[-10px]");
+      } else {
+        panel?.classList.remove("translate-x-[-10px]");
+        panel?.classList.add("-translate-x-full");
+      }
+
+      document.body.classList.toggle("overflow-hidden");
     }
 
     btnOpen?.addEventListener("click", togglePanel);
@@ -93,7 +102,8 @@ import {
     links.forEach((link) => {
       link.addEventListener("click", () => {
         panel?.classList.add("-translate-x-full");
-        panel?.classList.remove("translate-x-0");
+        panel?.classList.remove("translate-x-[-10px]");
+        document.body.classList.remove("overflow-hidden");
       });
     });
   });
