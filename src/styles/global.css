@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+/* Animacion para cardProfile al recarga la pagina */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s ease-out both;
+}
+
+/* Animacion para Skills */
+@keyframes scrollX {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-tech {
+  display: flex;
+  width: max-content;
+  animation: scrollX 25s linear infinite;
+}

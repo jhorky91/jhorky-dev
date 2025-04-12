@@ -1,3 +1,28 @@
+import { User, FolderKanban, Briefcase, Mail } from "@lucide/astro";
+
+export const MENU= [
+  {
+    name: "Sobre mí",
+    href: "#sobre-mi",
+    icon: User,
+  },
+  {
+    name: "Proyectos",
+    href: "#proyects",
+    icon: FolderKanban,
+  },
+  {
+    name: "Experiencia",
+    href: "#experience",
+    icon: Briefcase,
+  },
+  {
+    name: "Contáctame",
+    href: "#contact",
+    icon: Mail,
+  },
+];
+
 export const EXPERIENCE = [
   {
     role: "Analista Funcional",
@@ -8,7 +33,7 @@ export const EXPERIENCE = [
       "Gestión de tickets y resolución en plazos establecidos.",
       "Colaboración con Desarrollo para detectar bugs y analizar logs.",
       "Migración del sistema de producción.",
-      "Documentación de requerimientos y soluciones."
+      "Documentación de requerimientos y soluciones.",
     ],
   },
   {
@@ -21,7 +46,7 @@ export const EXPERIENCE = [
       "Detección y análisis de bugs, performance y regresiones.",
       "Consultas SQL (Oracle, MySQL, SQL Server).",
       "Revisión de ETLs (DataStage), jobs (Control-M) y BI.",
-      "Gestión de tickets y documentación de soluciones en SAP Solman."
+      "Gestión de tickets y documentación de soluciones en SAP Solman.",
     ],
   },
   {
@@ -33,7 +58,7 @@ export const EXPERIENCE = [
       "Manejo de reportería (MicroStrategy).",
       "Gestión de datos en Teradata, Oracle y Hive (NiFi).",
       "Gestión de incidencias (HP Service Manager).",
-      "Soporte en guardias técnicas."
+      "Soporte en guardias técnicas.",
     ],
   },
   {
@@ -45,7 +70,35 @@ export const EXPERIENCE = [
       "Documentación funcional de requerimientos y casos de uso.",
       "Resolución de incidentes con HP Service Manager.",
       "Coordinación de pruebas funcionales en QA y producción.",
-      "Soporte a usuarios finales y colaboración con desarrollo."
+      "Soporte a usuarios finales y colaboración con desarrollo.",
     ],
   },
+];
+
+export const SKILLS = [
+  "TypeScript",
+  "JavaScript",
+  "React",
+  "Node",
+  "Express",
+  "Java",
+  "Php",
+  "Tailwind",
+  "Styled Components",
+  "Material UI",
+  "Bootstrap",
+  "Sequelize",
+  "Supabase",
+  "SQL Server",
+  "MongoDB",
+  "Oracle",
+  "MySQL",
+  "PostgreSQL",
+  "Figma",
+  "Linux",
+  "PostMan",
+  "Git",
+  "Azure DevOps",
+  "Metodologías ágiles",
+  "Cypress",
 ];

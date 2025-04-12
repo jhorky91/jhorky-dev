@@ -1,26 +1,116 @@
 ---
-// CardProject.astro
-const { title, image, description, maskColor } = Astro.props;
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import ReactIcon from "../icons/ReactIcon.astro";
+import NodeIcon from "../icons/NodeIcon.astro";
+import SupabaseIcon from "../icons/SupabaseIcon.astro";
+import GithubIcon from "../icons/GithubIcon.astro";
+import { SquareArrowOutUpRight } from "@lucide/astro";
+
+type TechName = "React" | "Node" | "Supabase";
+
+interface CardProps {
+  title: string;
+  image: string;
+  description: string;
+  maskColor: string;
+  techs?: TechName[];
+  children?: any;
+  urlRepo?: string;
+  demo?: string;
+}
+
+const props = Astro.props as CardProps;
+
+const {
+  title,
+  image,
+  description,
+  maskColor,
+  techs = [],
+  children,
+  urlRepo,
+  demo,
+} = props;
+
+// Mapeo de tecnologías a componentes de íconos
+const icons: Record<TechName, AstroComponentFactory> = {
+  React: ReactIcon,
+  Node: NodeIcon,
+  Supabase: SupabaseIcon,
+};
 ---
 
 <div
-  class="relative rounded-xl p-6 shadow-lg hover:scale-105 transition-transform bg-gradient-to-br from-[#1c1c1f] to-[#2a2a30] overflow-hidden"
+  class="relative rounded-xl p-6 shadow-lg hover:scale-105 transition-transform bg-gradient-to-br from-[#1c1c1f] to-[#2a2a30] overflow-hidden min-h-[400px]"
 >
-  <!-- Máscara radial más visible -->
   <div
     class="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
     style={`background: radial-gradient(120% 120% at 50% 20%, ${maskColor} 0%, transparent 70%)`}
   >
   </div>
 
-  <!-- Contenido -->
-  <div class="relative z-10">
-    <img
-      src={image}
-      alt={title}
-      class="rounded-lg mb-4 w-full object-cover shadow-inner"
-    />
-    <h3 class="text-xl font-bold text-white mb-2">{title}</h3>
-    <p class="text-sm text-gray-300 leading-relaxed">{description}</p>
+  <div class="relative z-10 flex flex-col justify-between h-full">
+    <!-- Parte superior -->
+    <div>
+      <img
+        src={image}
+        alt={title}
+        class="rounded-lg mb-4 w-full object-cover shadow-inner"
+      />
+      <h3 class="text-xl font-bold text-white mb-2">{title}</h3>
+      <p class="text-sm text-gray-300 leading-relaxed">{description}</p>
+    </div>
+
+    <!-- Parte inferior: íconos y children -->
+    <div class="mt-4">
+      <ul class="flex justify-center flex-wrap gap-2 mb-3">
+        {
+          techs.map((tech) => {
+            const IconComponent = icons[tech];
+
+            return (
+              <li class="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-white/20 transition">
+                {IconComponent && (
+                  <span class="w-4 h-4 flex items-center justify-center shrink-0">
+                    <IconComponent class="w-full h-full" />
+                  </span>
+                )}
+                <span>{tech}</span>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <hr class="my-4 border-gray-200/30 w-full mx-auto" />
+      <!-- Íconos de GitHub y Demo -->
+      <div class="flex justify-center items-center gap-5 mt-2">
+        {
+          urlRepo && (
+            <a
+              href={urlRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition text-white border border-white/20"
+            >
+              <GithubIcon />
+            </a>
+          )
+        }
+        {
+          demo && (
+            <a
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition text-white border border-white/20"
+            >
+              <SquareArrowOutUpRight class="size-[20px]" />
+            </a>
+          )
+        }
+      </div>
+
+      {children}
+    </div>
   </div>
 </div>

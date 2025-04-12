@@ -1,5 +1,6 @@
 ---
 import MenuHambur from "./MenuHambur.astro";
+import { MENU } from "@/utils/data.js";
 ---
 
 <header
@@ -7,12 +8,13 @@ import MenuHambur from "./MenuHambur.astro";
 >
   <!-- Nav en desktop -->
   <nav class="hidden md:flex gap-10 text-sm font-semibold">
-    <a href="#sobre-mi" class="hover:text-purple-400 transition">Sobre mí</a>
-    <a href="#proyects" class="hover:text-purple-400 transition">Proyectos</a>
-    <a href="#experience" class="hover:text-purple-400 transition">Experiencia</a>
-    <a href="#skills" class="hover:text-purple-400 transition">Tecnologías</a>
-    <a href="#education" class="hover:text-purple-400 transition">Educación</a>
-    
+    {
+      MENU.map((item) => (
+        <a href={item.href} class="hover:text-purple-400 transition">
+          {item.name}
+        </a>
+      ))
+    }
   </nav>
 
   <!-- Icono hamburguesa solo visible en mobile -->
