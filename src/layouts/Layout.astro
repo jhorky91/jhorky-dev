@@ -4,9 +4,10 @@ interface Props {
   description: string;
 }
 const { title, description } = Astro.props;
-// Supports weights 100-900
 import "@fontsource-variable/onest";
+import "@/styles/global.css";
 import Header from "@/components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -17,19 +18,9 @@ import Header from "@/components/Header.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Jhorky Escalante - @jhorky91" />
-    <meta
-      name="keywords"
-      content="Jhorky Escalante, Analista Funcional, Desarrollador Web, Astro, Tailwind, Supabase, Express, JavaScript, TypeScript, React, Node, PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Linux, Figma, PostMan, Git, Azure DevOps, Metodologías ágiles, Cypress"
-    />
+    <meta name="keywords" content="Jhorky Escalante, Analista Funcional, Desarrollador Web, Astro, Tailwind, Supabase, Express, JavaScript, TypeScript, React, Node, PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Linux, Figma, PostMan, Git, Azure DevOps, Metodologías ágiles, Cypress" />
     <meta name="application-name" content="Portafolio Jhorky Escalante" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="google" content="index, follow" />
-    <meta name="bingbot" content="index, follow" />
-    <meta name="yandex" content="index, follow" />
-    <meta name="baidu" content="index, follow" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@jhorky91" />
     <meta name="twitter:creator" content="@jhorky91" />
@@ -42,7 +33,17 @@ import Header from "@/components/Header.astro";
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="Portafolio Jhorky Escalante" />
-    <!-- SON-LD -->
+
+    <!-- 1. Anti-flash: aplica el tema antes de pintar -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("jhorky-theme");
+        const preferLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+        const theme = saved ?? (preferLight ? "light" : "dark");
+        if (theme === "light") document.documentElement.classList.add("light");
+      })();
+    </script>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -62,38 +63,82 @@ import Header from "@/components/Header.astro";
         }
       }
     </script>
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <link rel="icon" href="/favicon.ico" sizes="any"/>
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <title>
       {title ? `${title} | Jhorky Escalante` : "Jhorky Escalante | Portafolio"}
     </title>
+
+    <ClientRouter />
   </head>
-  <body class="h-screen flex flex-col overflow-hidden">
-    <!-- Fondo -->
+
+  <body class="h-screen flex flex-col overflow-hidden bg-bg-base text-text-primary">
+
     <div
-      class="absolute inset-0 -z-10 h-screen w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
-    >
-    </div>
-    <!-- Header fijo -->
-    <Header />
-    <main class="flex-1 overflow-y-auto px-5 py-4 pt-[80px]">
+      class="absolute inset-0 -z-10 h-screen w-full transition-all duration-500"
+      style="background: var(--gradient-page);"
+      transition:persist
+    ></div>
+
+    <Header transition:persist />
+
+    <main class="flex-1 overflow-y-auto px-5 py-4 pt-[80px]" transition:animate="fade">
       <slot />
     </main>
-  </body>
 
-  <style is:global>
-    :root {
-      color-scheme: light ;
-    }
-    html {
-      height: 100%;
-      scroll-behavior: smooth;
-    }
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100vh;
-      font-family: "Onest Variable", sans-serif;
-    }
-  </style>
+  </body>
 </html>
+
+<!-- 2. Script global del tema — is:inline para que persista con View Transitions -->
+<script is:inline>
+  const STORAGE_KEY = "jhorky-theme";
+
+  function getTheme() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+
+  function applyTheme(theme) {
+    const html = document.documentElement;
+    const iconSun  = document.getElementById("icon-sun");
+    const iconMoon = document.getElementById("icon-moon");
+
+    if (theme === "light") {
+      html.classList.add("light");
+      iconSun?.classList.add("hidden");
+      iconMoon?.classList.remove("hidden");
+    } else {
+      html.classList.remove("light");
+      iconSun?.classList.remove("hidden");
+      iconMoon?.classList.add("hidden");
+    }
+    localStorage.setItem(STORAGE_KEY, theme);
+  }
+
+  function initToggle() {
+    const toggle = document.getElementById("theme-toggle");
+    if (!toggle) return;
+
+    // Sincronizar íconos con el tema actual
+    applyTheme(getTheme());
+
+    // Remover listener anterior si existe para no acumularlos
+    const oldHandler = toggle._themeHandler;
+    if (oldHandler) toggle.removeEventListener("click", oldHandler);
+
+    const handler = () => {
+      const current = document.documentElement.classList.contains("light") ? "light" : "dark";
+      applyTheme(current === "light" ? "dark" : "light");
+    };
+
+    toggle._themeHandler = handler;
+    toggle.addEventListener("click", handler);
+  }
+
+  // Carga inicial
+  initToggle();
+
+  // Cada navegación con View Transitions
+  document.addEventListener("astro:page-load", initToggle);
+</script>

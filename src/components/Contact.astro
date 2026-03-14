@@ -1,53 +1,175 @@
 ---
-import { Github, Linkedin, Twitter, Youtube } from "@lucide/astro";
+import { Github, Linkedin, Twitter, Youtube, Mail, MessageCircle, ArrowRight } from "@lucide/astro";
 ---
 
-<section id="contact" class="my-5 px-6 max-w-3xl mx-auto text-center">
-  <h2 class="text-white text-2xl md:text-3xl font-bold mb-4">¿Trabajamos juntos?</h2>
-  <p class="text-sm md:text-base text-gray-400 mb-8">
-    Estoy abierto a nuevas oportunidades, colaboraciones o simplemente charlar
-    sobre tecnología.
-  </p>
+<section class="max-w-2xl mx-auto py-8 px-4">
 
+  <!-- Encabezado -->
+  <div class="mb-10 flex flex-col gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-1 h-6 rounded-full bg-accent-solid"></div>
+      <span class="text-sm font-medium tracking-widest uppercase text-accent-text">Contacto</span>
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-text-primary">
+      ¿Trabajamos juntos?
+    </h1>
+    <p class="text-base leading-relaxed max-w-lg text-text-secondary">
+      Estoy abierto a nuevas oportunidades, colaboraciones o simplemente charlar sobre tecnología. Si tenés un proyecto en mente o querés conocer más de mi trabajo, escribime.
+    </p>
+  </div>
+
+  <!-- Email -->
   <a
     href="mailto:escalante.jhorky.91@gmail.com"
-    class="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition"
+    class="contact-email group flex items-center justify-between gap-4 w-full p-5 rounded-xl mb-4
+      bg-accent-bg border border-accent-border transition-all duration-200"
   >
-    Enviame un correo
+    <div class="flex items-center gap-4">
+      <div class="flex items-center justify-center size-11 rounded-lg flex-shrink-0
+        bg-accent-bg border border-accent-border text-accent-text">
+        <Mail size={20} />
+      </div>
+      <div class="text-left">
+        <p class="font-medium text-sm text-text-primary">Enviame un correo</p>
+        <p class="text-xs mt-0.5 text-text-secondary">escalante.jhorky.91@gmail.com</p>
+      </div>
+    </div>
+    <ArrowRight size={18} class="arrow flex-shrink-0 transition-all duration-200 text-text-muted" />
   </a>
 
-  <div class="mt-6 flex justify-center gap-6">
-    <a
-      href="https://github.com/jhorky91/"
-      target="_blank"
-      aria-label="GitHub"
-      class="text-purple-300 hover:text-white text-2xl"
-    >
-      <Github />
-    </a>
-    <a
-      href="https://www.linkedin.com/in/jhorkyescalante/"
-      target="_blank"
-      aria-label="LinkedIn"
-      class="text-purple-300 hover:text-white text-2xl"
-    >
-      <Linkedin />
-    </a>
-    <a
-      href="https://x.com/JhorkyDev"
-      target="_blank"
-      aria-label="Twitter"
-      class="text-purple-300 hover:text-white text-2xl"
-    >
-      <Twitter />
-    </a>
-    <a
-      href="https://www.youtube.com/@jhorky91"
-      target="_blank"
-      aria-label="YouTube"
-      class="text-purple-300 hover:text-white text-2xl"
-    >
-      <Youtube />
-    </a>
+  <!-- WhatsApp -->
+  <a
+    href="https://wa.me/5491122544533"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="contact-default group flex items-center justify-between gap-4 w-full p-5 rounded-xl mb-10
+      bg-bg-panel border border-border-default transition-all duration-200"
+  >
+    <div class="flex items-center gap-4">
+      <div class="flex items-center justify-center size-11 rounded-lg flex-shrink-0
+        bg-bg-hover border border-border-default text-text-secondary">
+        <MessageCircle size={20} />
+      </div>
+      <div class="text-left">
+        <p class="font-medium text-sm text-text-primary">WhatsApp</p>
+        <p class="text-xs mt-0.5 text-text-secondary">Respondo en menos de 24 hs</p>
+      </div>
+    </div>
+    <ArrowRight size={18} class="arrow flex-shrink-0 transition-all duration-200 text-text-muted" />
+  </a>
+
+  <!-- Divisor -->
+  <div class="flex items-center gap-4 mb-8">
+    <div class="flex-1 h-px bg-border-subtle"></div>
+    <span class="text-xs text-text-muted">o encontrame en</span>
+    <div class="flex-1 h-px bg-border-subtle"></div>
   </div>
+
+  <!-- Redes -->
+  <div class="grid grid-cols-2 gap-3">
+
+    <a href="https://github.com/jhorky91/" target="_blank" rel="noopener noreferrer"
+      class="social-default flex items-center gap-3 p-4 rounded-xl transition-all duration-200
+        bg-bg-panel border border-border-default">
+      <div class="flex items-center justify-center size-9 rounded-lg flex-shrink-0
+        bg-bg-hover border border-border-default text-text-secondary">
+        <Github size={18} />
+      </div>
+      <div>
+        <p class="text-sm font-medium text-text-primary">GitHub</p>
+        <p class="text-xs text-text-muted">@jhorky91</p>
+      </div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/jhorkyescalante/" target="_blank" rel="noopener noreferrer"
+      class="social-accent flex items-center gap-3 p-4 rounded-xl transition-all duration-200
+        bg-bg-panel border border-border-default">
+      <div class="flex items-center justify-center size-9 rounded-lg flex-shrink-0
+        bg-accent-bg border border-accent-border text-accent-text">
+        <Linkedin size={18} />
+      </div>
+      <div>
+        <p class="text-sm font-medium text-text-primary">LinkedIn</p>
+        <p class="text-xs text-text-muted">jhorkyescalante</p>
+      </div>
+    </a>
+
+    <a href="https://x.com/JhorkyDev" target="_blank" rel="noopener noreferrer"
+      class="social-default flex items-center gap-3 p-4 rounded-xl transition-all duration-200
+        bg-bg-panel border border-border-default">
+      <div class="flex items-center justify-center size-9 rounded-lg flex-shrink-0
+        bg-bg-hover border border-border-default text-text-secondary">
+        <Twitter size={18} />
+      </div>
+      <div>
+        <p class="text-sm font-medium text-text-primary">Twitter / X</p>
+        <p class="text-xs text-text-muted">@JhorkyDev</p>
+      </div>
+    </a>
+
+    <!-- YouTube mantiene rojo porque es identidad de marca, no paleta del sitio -->
+    <a href="https://www.youtube.com/@jhorky91" target="_blank" rel="noopener noreferrer"
+      class="social-youtube flex items-center gap-3 p-4 rounded-xl transition-all duration-200
+        bg-bg-panel border border-border-default">
+      <div class="flex items-center justify-center size-9 rounded-lg flex-shrink-0
+        bg-bg-hover border border-border-default text-text-secondary">
+        <Youtube size={18} />
+      </div>
+      <div>
+        <p class="text-sm font-medium text-text-primary">YouTube</p>
+        <p class="text-xs text-text-muted">@jhorky91</p>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Banner disponibilidad -->
+  <div class="mt-8 p-4 rounded-xl flex items-center gap-3
+    bg-success-bg border border-success-border">
+    <span class="size-2 rounded-full animate-pulse flex-shrink-0 bg-success-text"></span>
+    <p class="text-sm text-text-secondary">
+      Actualmente <span class="font-medium text-success-text">disponible</span> para nuevos proyectos y oportunidades laborales.
+    </p>
+  </div>
+
 </section>
+
+<style>
+  /* Email hover */
+  .contact-email:hover {
+    background: var(--color-accent-bg);
+    border-color: var(--color-accent-solid);
+  }
+  .contact-email:hover .arrow {
+    color: var(--color-accent-text);
+    transform: translateX(4px);
+  }
+
+  /* WhatsApp hover */
+  .contact-default:hover {
+    border-color: var(--color-border-default);
+    background: var(--color-bg-hover);
+  }
+  .contact-default:hover .arrow {
+    color: var(--color-text-secondary);
+    transform: translateX(4px);
+  }
+
+  /* Redes default hover */
+  .social-default:hover {
+    border-color: var(--color-border-default);
+    background: var(--color-bg-hover);
+  }
+
+  /* LinkedIn hover */
+  .social-accent:hover {
+    border-color: var(--color-accent-border);
+    background: var(--color-accent-bg);
+  }
+
+  /* YouTube hover */
+  .social-youtube:hover {
+    border-color: rgba(153,27,27,0.4);
+    background: rgba(127,29,29,0.1);
+  }
+</style>

@@ -1,24 +1,55 @@
 ---
 import MenuHambur from "./MenuHambur.astro";
-import { MENU } from "@/utils/data.js";
+import ThemeToggle from "./ThemeToggle.astro";
+import { MENU } from "@/utils/data.ts";
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
 ---
 
-<header
-  class="fixed top-0 left-0 w-full z-50 flex justify-start pl-2 md:justify-center items-center h-[80px] bg-black/60 backdrop-blur-md"
+<header class="fixed top-0 left-0 w-full z-50 h-[68px] flex items-center justify-between px-4 md:px-6
+  bg-bg-base/80 backdrop-blur-xl border-b border-border-default"
 >
-  <!-- Nav en desktop -->
-  <nav class="hidden md:flex gap-10 text-sm font-semibold">
+
+  <!-- Logo -->
+  <a
+    href="/"
+    class="text-sm font-bold tracking-widest uppercase text-text-muted hover:text-text-primary transition-colors duration-200"
+  >
+    jhorky.dev
+  </a>
+
+  <!-- Nav desktop -->
+  <nav class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-accent-bg border border-border-default">
     {
-      MENU.map((item) => (
-        <a href={item.href} class="text-white hover:text-purple-400 transition">
-          {item.name}
-        </a>
-      ))
+      MENU.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`nav-item px-5 py-2 text-sm font-medium rounded-lg transition-all duration-200 border
+              ${active
+                ? "text-accent-text bg-accent-bg border-accent-border shadow-[inset_0_1px_0_var(--color-accent-border)]"
+                : "text-text-secondary border-transparent hover:text-text-primary hover:bg-bg-hover"
+              }`}
+          >
+            {item.name}
+          </a>
+        );
+      })
     }
   </nav>
 
-  <!-- Icono hamburguesa solo visible en mobile -->
-  <div class="block md:hidden">
-    <MenuHambur />
+  <!-- Toggle + hamburguesa -->
+  <div class="flex items-center gap-2">
+    <ThemeToggle />
+    <div class="block md:hidden">
+      <MenuHambur />
+    </div>
   </div>
+
 </header>

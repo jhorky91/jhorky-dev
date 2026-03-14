@@ -1,94 +1,175 @@
 ---
 import { X } from "@lucide/astro";
-import { MENU } from "@/utils/data.js";
+import { MENU } from "@/utils/data.ts";
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
 ---
 
-<!-- Contenedor -->
 <div class="relative z-50">
-  <!-- Botón hamburguesa (abrir menú) -->
-  <button id="hamburBtnOpen" class="flex flex-col gap-2 p-2 focus:outline-none">
-    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
-    ></span>
-    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
-    ></span>
-    <span class="block w-8 h-1 bg-white rounded transition-all duration-300"
-    ></span>
+
+  <!-- Botón hamburguesa -->
+  <button
+    id="hamburBtnOpen"
+    aria-label="Abrir menú"
+    aria-expanded="false"
+    class="hambur-btn flex flex-col justify-center gap-[5px] w-10 h-10 p-2 rounded-lg transition-colors duration-200 focus:outline-none"
+  >
+    <span id="hLine1" class="block w-5 h-0.5 rounded-full transition-all duration-300 origin-center bg-text-secondary"></span>
+    <span id="hLine2" class="block w-5 h-0.5 rounded-full transition-all duration-300 origin-center bg-text-secondary"></span>
+    <span id="hLine3" class="block w-3.5 h-0.5 rounded-full transition-all duration-300 origin-center bg-accent-solid"></span>
   </button>
 
-  <!-- Panel deslizable -->
+  <!-- Overlay -->
+  <div
+    id="menuOverlay"
+    class="fixed inset-0 z-30 opacity-0 pointer-events-none transition-opacity duration-300"
+    style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);"
+  ></div>
+
+  <!-- Panel -->
   <div
     id="menuMobilePanel"
-    class="fixed top-0 left-0 h-screen w-4/5 overflow-y-auto bg-neutral-950 text-white transform -translate-x-full transition-transform duration-300 z-40 px-6 py-20 flex flex-col justify-between bg-[radial-gradient(ellipse_100%_100%_at_50%_0%,#1B113F_0%,#000_100%)]"
+    role="dialog"
+    aria-modal="true"
+    class="fixed top-0 left-0 h-screen w-[280px] z-40 -translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col overflow-hidden
+      bg-bg-base border-r border-border-default"
   >
-    <!-- Cierre -->
-    <button
-      id="hamburBtnClose"
-      class="absolute top-4 right-4 hover:text-red-500 transition cursor-pointer"
-    >
-      <X size={32} stroke-width={2.5} />
-    </button>
+    <!-- Borde derecho decorativo con acento -->
+    <div class="absolute top-0 right-0 h-full w-px pointer-events-none"
+      style="background: linear-gradient(to bottom, transparent, var(--color-accent-border) 30%, var(--color-accent-border) 70%, transparent);">
+    </div>
+
+    <!-- Header del panel -->
+    <div class="flex items-center justify-between px-5 py-4 border-b border-border-default">
+      <div class="flex items-center gap-2.5">
+        <div class="size-7 rounded-lg flex items-center justify-center bg-accent-bg border border-accent-border">
+          <div class="size-2 rounded-full bg-accent-solid"></div>
+        </div>
+        <a href="/" class="text-sm font-bold tracking-widest uppercase text-text-primary">
+          jhorky.dev
+        </a>
+      </div>
+      <button
+        id="hamburBtnClose"
+        aria-label="Cerrar menú"
+        class="menu-close-btn flex items-center justify-center size-8 rounded-lg transition-all duration-200 cursor-pointer text-text-secondary"
+      >
+        <X size={16} stroke-width={2.5} />
+      </button>
+    </div>
 
     <!-- Navegación -->
-    <nav class="flex flex-col gap-6 mt-12 text-lg ml-5">
+    <nav class="flex flex-col px-3 py-4 flex-1 gap-1">
+      <p class="text-[10px] font-semibold uppercase tracking-widest px-3 mb-2 text-text-muted">
+        Navegación
+      </p>
       {
-        MENU.map((item) => (
-          <a            
-            class="flex items-center gap-3 text-gray-300 hover:text-purple-400 hover:translate-x-1 transition-all duration-200"
-            href={item.href}
-          >
-            <item.icon
-              size={22}
-              class="text-purple-500 group-hover:text-purple-300 transition"
-            /> {item.name}
-          </a>
-          <div class="relative w-full my-4">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-              <div class="w-full border-t border-purple-800/20"></div>
-            </div>
-            <div class="relative flex justify-center">
-              <span class="bg-neutral-950 px-2 text-purple-400 text-xs">●</span>
-            </div>
-          </div>
-        ))
+        MENU.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 border
+                ${active
+                  ? "text-accent-text bg-accent-bg border-accent-border"
+                  : "menu-link text-text-secondary border-transparent"
+                }`}
+            >
+              <span class={`flex items-center justify-center size-8 rounded-md flex-shrink-0 transition-all duration-200
+                ${active
+                  ? "bg-accent-bg text-accent-text border border-accent-border"
+                  : "menu-icon-wrap bg-bg-panel border border-border-default text-text-muted"
+                }`}
+              >
+                <item.icon size={15} stroke-width={2} />
+              </span>
+              <span>{item.name}</span>
+              {active && (
+                <span class="ml-auto size-1.5 rounded-full animate-pulse bg-accent-solid flex-shrink-0"></span>
+              )}
+            </a>
+          );
+        })
       }
-     </nav>
+    </nav>
+
     <!-- Footer -->
-    <div class="text-xs text-neutral-400 flex justify-center">
-      <span>Versión 1.0.0</span>
+    <div class="px-5 py-4 border-t border-border-subtle">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="size-1.5 rounded-full animate-pulse bg-success-text"></span>
+          <span class="text-xs text-text-muted">Disponible</span>
+        </div>
+        <span class="text-xs text-text-muted">v1.0.0</span>
+      </div>
     </div>
+
   </div>
 </div>
 
+<style>
+  .hambur-btn:hover {
+    background: var(--color-bg-hover);
+  }
+  .menu-close-btn:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-hover);
+  }
+  .menu-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-hover);
+  }
+  .menu-link:hover .menu-icon-wrap {
+    color: var(--color-text-secondary);
+  }
+</style>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const btnOpen = document.getElementById("hamburBtnOpen");
+  document.addEventListener("astro:page-load", () => {
+    const btnOpen  = document.getElementById("hamburBtnOpen");
     const btnClose = document.getElementById("hamburBtnClose");
-    const panel = document.getElementById("menuMobilePanel");
-    const links = document.querySelectorAll("#menuMobilePanel a");
+    const panel    = document.getElementById("menuMobilePanel");
+    const overlay  = document.getElementById("menuOverlay");
+    const line1    = document.getElementById("hLine1");
+    const line2    = document.getElementById("hLine2");
+    const line3    = document.getElementById("hLine3");
 
-    function togglePanel() {
-      const isOpen = panel?.classList.contains("-translate-x-full");
+    let isOpen = false;
 
-      if (isOpen) {
-        panel?.classList.remove("-translate-x-full");
-        panel?.classList.add("translate-x-[-10px]");
-      } else {
-        panel?.classList.remove("translate-x-[-10px]");
-        panel?.classList.add("-translate-x-full");
-      }
-
-      document.body.classList.toggle("overflow-hidden");
+    function openMenu() {
+      isOpen = true;
+      panel?.classList.replace("-translate-x-full", "translate-x-0");
+      overlay?.classList.remove("opacity-0", "pointer-events-none");
+      overlay?.classList.add("opacity-100");
+      document.body.classList.add("overflow-hidden");
+      btnOpen?.setAttribute("aria-expanded", "true");
+      line1?.classList.add("rotate-45", "translate-y-[7px]");
+      line2?.classList.add("opacity-0", "scale-x-0");
+      line3?.classList.add("-rotate-45", "-translate-y-[7px]", "w-5");
+      line3?.classList.remove("w-3.5");
     }
 
-    btnOpen?.addEventListener("click", togglePanel);
-    btnClose?.addEventListener("click", togglePanel);
+    function closeMenu() {
+      isOpen = false;
+      panel?.classList.replace("translate-x-0", "-translate-x-full");
+      overlay?.classList.add("opacity-0", "pointer-events-none");
+      overlay?.classList.remove("opacity-100");
+      document.body.classList.remove("overflow-hidden");
+      btnOpen?.setAttribute("aria-expanded", "false");
+      line1?.classList.remove("rotate-45", "translate-y-[7px]");
+      line2?.classList.remove("opacity-0", "scale-x-0");
+      line3?.classList.remove("-rotate-45", "-translate-y-[7px]", "w-5");
+      line3?.classList.add("w-3.5");
+    }
 
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        panel?.classList.add("-translate-x-full");
-        panel?.classList.remove("translate-x-[-10px]");
-        document.body.classList.remove("overflow-hidden");
-      });
-    });
+    btnOpen?.addEventListener("click",  () => isOpen ? closeMenu() : openMenu());
+    btnClose?.addEventListener("click", closeMenu);
+    overlay?.addEventListener("click",  closeMenu);
+    document.addEventListener("keydown", (e) => e.key === "Escape" && isOpen && closeMenu());
   });
 </script>

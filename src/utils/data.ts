@@ -1,24 +1,24 @@
 import { User, FolderKanban, Briefcase, Mail } from "@lucide/astro";
 
-export const MENU= [
+export const MENU = [
   {
     name: "Sobre mí",
-    href: "#sobre-mi",
+    href: "/",
     icon: User,
   },
   {
     name: "Proyectos",
-    href: "#proyects",
+    href: "/proyectos",
     icon: FolderKanban,
   },
   {
     name: "Experiencia",
-    href: "#experience",
+    href: "/experiencia",
     icon: Briefcase,
   },
   {
     name: "Contáctame",
-    href: "#contact",
+    href: "/contacto",
     icon: Mail,
   },
 ];
@@ -76,29 +76,8 @@ export const EXPERIENCE = [
 ];
 
 export const SKILLS = [
-  "TypeScript",
-  "JavaScript",
-  "React",
-  "Node",
-  "Express",
-  "Java",
-  "Php",
-  "Tailwind",
-  "Styled Components",
-  "Material UI",
-  "Bootstrap",
-  "Sequelize",
-  "Supabase",
-  "SQL Server",
-  "MongoDB",
-  "Oracle",
-  "MySQL",
-  "PostgreSQL",
-  "Figma",
-  "Linux",
-  "PostMan",
-  "Git",
-  "Azure DevOps",
-  "Metodologías ágiles",
-  "Cypress",
+  "TypeScript", "JavaScript", "React", "Node", "Express", "Java", "Php",
+  "Tailwind", "Styled Components", "Material UI", "Bootstrap", "Sequelize",
+  "Supabase", "SQL Server", "MongoDB", "Oracle", "MySQL", "PostgreSQL",
+  "Figma", "Linux", "PostMan", "Git", "Azure DevOps", "Metodologías ágiles", "Cypress",
 ];
