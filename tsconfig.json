@@ -1,9 +1,14 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "jsxImportSource": "astro",
     "baseUrl": ".",
+    "types": [
+      "astro/client"
+    ],
     "paths": {
       "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
